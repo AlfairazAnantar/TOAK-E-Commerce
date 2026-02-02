@@ -291,3 +291,22 @@ function showSellerDashboard() {
 }
 
 console.log('✅ Login UI module loaded');
+
+const realToggleCart = window.toggleCart; 
+
+window.toggleCart = function() {
+    console.log("🔍 Mengecek status login sebelum buka keranjang...");
+
+    if (typeof isLoggedIn === 'function' && isLoggedIn()) {
+
+        if (realToggleCart) {
+            realToggleCart(); 
+        } else {
+            console.error("Fungsi keranjang asli tidak ditemukan!");
+        }
+    } else {
+
+        showToast('Ups, silakan login dulu untuk melihat keranjang! 🔒', 'warning');
+        renderLoginModal();
+    }
+};
